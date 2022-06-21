@@ -1,3 +1,4 @@
+import { Items } from '../contracts/Items';
 import {mockItems} from '../Mock/ItemsMock'
 
 export const findAll = ()=>{
@@ -14,9 +15,11 @@ export const findById = (id:number)=>{
   }
 };
 
-export const postWork = ()=>{
+export const postWork = (newData:Items)=>{
     //changes to whole 
+    mockItems.push(newData);
     return Promise.resolve(mockItems);
+    // return Promise.resolve([...mockItems,newData]);
 }
 
 export const putForId = (id:number) => {

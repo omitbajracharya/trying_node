@@ -1,4 +1,5 @@
 import {Request,Response,Router} from 'express'
+import { Items } from '../contracts/Items';
 import {findAll,findById,postWork,putForId,deleteForId} from '../Services/ItemsService'
 
 export const itemsRouter:Router = Router();
@@ -26,8 +27,16 @@ itemsRouter.get('/:id',async (req:Request,res:Response)=>{
 
 //Post
 itemsRouter.post('/',async (req:Request,res:Response)=>{
+
+    let newEntry:Items ={
+    id:Number(req.body.id),
+    title:req.body.title,
+    body:req.body.body
+    }
+    // if(newEntry)
+        console.log(newEntry);
     try{
-        const result = await postWork();
+        const result = await postWork(newEntry);
         res.json(result);
     }catch (error){
         res.status(404).send('error');
@@ -37,6 +46,7 @@ itemsRouter.post('/',async (req:Request,res:Response)=>{
 
 //Put
 itemsRouter.put('/:id',async (req:Request,res:Response)=>{
+    console.log('TEST')
     try{
         const result = await putForId(Number(req.params.id));
         res.json(result);
